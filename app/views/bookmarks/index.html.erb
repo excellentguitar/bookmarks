@@ -1,0 +1,23 @@
+<div class="max-w-2xl mx-auto p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-900">Bookmarks</h1>
+    <%= link_to "Add bookmark", new_bookmark_path,
+        class: "bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium" %>
+  </div>
+
+  <% if @bookmarks.any? %>
+    <ul class="space-y-2">
+      <% @bookmarks.each do |bookmark| %>
+        <li class="flex justify-between items-center bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+          <%= link_to bookmark.title, bookmark.url, target: "_blank",
+              class: "text-blue-600 hover:underline font-medium truncate" %>
+          <%= button_to "Delete", bookmark_path(bookmark), method: :delete,
+              class: "text-red-600 hover:text-red-800 text-sm font-medium",
+              data: { turbo_confirm: "Delete this bookmark?" } %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-gray-500 italic">No bookmarks yet. Add one to get started.</p>
+  <% end %>
+</div>
